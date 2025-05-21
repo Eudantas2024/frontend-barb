@@ -20,7 +20,7 @@ function buscarCEP() {
 function cadastrarConsumidor(event) {
     event.preventDefault();
 
-    const API_URL = "https://backend-goaq.onrender.com"; // ✅ Substituímos localhost pela URL do Render
+    const API_URL = "https://backend-barb.onrender.com"; // ✅ Substituímos localhost pela URL do Render
 
     const dados = {
         nome: document.getElementById("nome").value,

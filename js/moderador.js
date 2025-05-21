@@ -1,4 +1,4 @@
-const API_URL = "https://backend-goaq.onrender.com";
+const API_URL = "https://backend-barb.onrender.com";
 
 // 🚀 Verificação de autenticação antes de carregar a página
 const token = localStorage.getItem("token");

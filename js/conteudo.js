@@ -11,7 +11,7 @@ async function checkAuth() {
     }
 
     // ✅ URL correta do backend
-    const API_URL = "https://backend-goaq.onrender.com";
+    const API_URL = "https://backend-barb.onrender.com";
 
     try {
         const response = await fetch(`${API_URL}/api/conteudo`, {

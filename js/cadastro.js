@@ -9,14 +9,13 @@ document.getElementById("registerForm").addEventListener("submit", async functio
         alert("❌ Preencha todos os campos antes de continuar.");
         return;
     }
-
     // ✅ URL correta do backend no Render
     const API_URL = "https://backend-barb.onrender.com";
 
     try {
-        console.log(`🔍 Enviando requisição de cadastro para: ${API_URL}`);
-        
-        const response = await fetch(API_URL, {
+        console.log(`🔍 Enviando requisição de cadastro para: ${API_URL}/register`);
+
+        const response = await fetch(`${API_URL}/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })

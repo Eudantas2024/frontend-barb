@@ -5,7 +5,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     const password = document.getElementById("password").value;
 
     // ✅ URL correta do backend no Render
-    const API_URL = "https://backend-barb.onrender.com/api/users";
+    const API_URL = "https://backend-barb.onrender.com";
 
     try {
         const response = await fetch(`${API_URL}/login`, {

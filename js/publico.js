@@ -1,5 +1,5 @@
 // 🚀 Página de acesso público sem login
-const API_URL = "https://backend-goaq.onrender.com"; // ✅ Substituímos localhost pela URL do Render
+const API_URL = "https://backend-barb.onrender.com"; // ✅ Substituímos localhost pela URL do Render
 
 function carregarReclamacoes() {
   fetch(`${API_URL}/api/opinioes`)

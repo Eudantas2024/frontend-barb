@@ -11,7 +11,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     }
 
     // ✅ URL correta do backend no Render
-    const API_URL = "https://backend-barb.onrender.com/api/users/register";
+    const API_URL = "https://backend-barb.onrender.com";
 
     try {
         console.log(`🔍 Enviando requisição de cadastro para: ${API_URL}`);

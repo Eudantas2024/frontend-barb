@@ -1,4 +1,4 @@
-const API_URL = "https://backend-barb.onrender.com"    // se estiver hospedado  "http://localhost:3000";
+const API_URL = "https://backend-barb.onrender.com"; // sem barra no final
 
 // ========================== FORMULÁRIO DE OPINIÃO ==========================
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const resposta = await fetch(`${API_URL}//api/empresas`, {
+        const resposta = await fetch(`${API_URL}/api/empresas`, { // só uma barra
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -25,7 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify({ empresa, comentario })
         });
 
-        const dados = await resposta.json();
+        let dados;
+        const text = await resposta.text();
+        try {
+          dados = JSON.parse(text);
+        } catch {
+          dados = { message: "Resposta inesperada do servidor." };
+        }
 
         if (resposta.ok) {
           mensagem.textContent = "Opinião enviada com sucesso. Aguarde a aprovação.";
@@ -49,10 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 // ========================== LISTAR OPINIÕES APROVADAS ==========================
 function carregarReclamacoes(token = null) {
-  const url = `${API_URL}//api/empresas`;
+  const url = `${API_URL}/api/empresas`; // só uma barra
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
   fetch(url, { headers })

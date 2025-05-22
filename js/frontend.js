@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const resposta = await fetch(`${API_URL}/api/opinioes`, {
+        const resposta = await fetch(`${API_URL}//api/empresas`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ========================== LISTAR OPINIÕES APROVADAS ==========================
 function carregarReclamacoes(token = null) {
-  const url = `${API_URL}/api/opinioes`;
+  const url = `${API_URL}//api/empresas`;
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
   fetch(url, { headers })

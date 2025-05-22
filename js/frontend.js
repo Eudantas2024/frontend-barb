@@ -1,6 +1,53 @@
-// FRONTEND (index.js ou script.js)
+const API_URL = "https://backend-barb.onrender.com"    // se estiver hospedado  "http://localhost:3000";
 
-const API_URL = "https://backend-barb.onrender.com";
+// ========================== FORMULÁRIO DE OPINIÃO ==========================
+document.addEventListener("DOMContentLoaded", () => {
+  const opiniaoForm = document.getElementById("opiniaoForm");
+  if (opiniaoForm) {
+    opiniaoForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const empresa = document.getElementById("empresa").value.trim();
+      const comentario = document.getElementById("comentario").value.trim();
+      const mensagem = document.getElementById("mensagem");
+
+      if (!empresa || !comentario) {
+        mensagem.textContent = "Por favor, preencha todos os campos.";
+        return;
+      }
+
+      try {
+        const resposta = await fetch(`${API_URL}/api/opinioes`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ empresa, comentario })
+        });
+
+        const dados = await resposta.json();
+
+        if (resposta.ok) {
+          mensagem.textContent = "Opinião enviada com sucesso. Aguarde a aprovação.";
+          opiniaoForm.reset();
+        } else {
+          mensagem.textContent = dados.message || "Erro ao enviar opinião.";
+        }
+      } catch (erro) {
+        console.error("Erro:", erro);
+        mensagem.textContent = "Erro ao conectar com o servidor.";
+      }
+    });
+  }
+
+  const token = localStorage.getItem("token");
+  if (document.getElementById("listaReclamacoes")) {
+    carregarReclamacoes(token);
+  }
+  if (document.getElementById("restrictedContent")) {
+    checkAuth();
+  }
+});
 
 // ========================== REGISTRO ==========================
 const registerForm = document.getElementById("registerForm");
@@ -24,8 +71,8 @@ if (registerForm) {
       });
 
       const data = await response.json();
-
       const messageBox = document.getElementById("registerMessage");
+
       if (messageBox) {
         messageBox.textContent = data.message;
         messageBox.style.display = "block";
@@ -72,8 +119,8 @@ if (loginForm) {
       });
 
       const data = await response.json();
-
       const messageBox = document.getElementById("loginMessage");
+
       if (messageBox) {
         messageBox.textContent = data.message || "Login realizado!";
         messageBox.style.color = response.ok ? "green" : "red";
@@ -93,7 +140,7 @@ if (loginForm) {
   });
 }
 
-// ========================== AUTENTICAÇÃO ==========================
+// ========================== VERIFICAÇÃO DE AUTENTICAÇÃO ==========================
 async function checkAuth() {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -124,7 +171,7 @@ function logout() {
   }, 2000);
 }
 
-// ========================== PÚBLICO / PRIVADO ==========================
+// ========================== LISTAR OPINIÕES APROVADAS ==========================
 function carregarReclamacoes(token = null) {
   const url = `${API_URL}/api/opinioes`;
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -143,24 +190,14 @@ function carregarReclamacoes(token = null) {
         container.appendChild(div);
       });
     })
-    .catch(() => alert("Erro ao carregar reclamações."));
+    .catch(() => alert("Erro ao carregar opiniões."));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("token");
-  if (document.getElementById("listaReclamacoes")) {
-    carregarReclamacoes(token);
-  }
-  if (document.getElementById("restrictedContent")) {
-    checkAuth();
-  }
-});
-
-// ========================== VIA CEP AUTOMÁTICO ==========================
+// ========================== VIA CEP ==========================
 const cepInput = document.getElementById("cep");
 if (cepInput) {
   cepInput.addEventListener("blur", async function () {
-    const cep = cepInput.value.replace(/\D/g, ""); // Remove tudo que não for número
+    const cep = cepInput.value.replace(/\D/g, "");
 
     if (cep.length !== 8) {
       alert("❌ CEP inválido. Deve conter 8 dígitos.");
@@ -176,7 +213,6 @@ if (cepInput) {
         return;
       }
 
-      // Preenche os campos com os dados do ViaCEP
       const logradouro = document.getElementById("logradouro");
       const bairro = document.getElementById("bairro");
       const cidade = document.getElementById("cidade");

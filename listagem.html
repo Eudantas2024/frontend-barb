@@ -1,53 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Listagem de Opiniões</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f5f5f5;
-    }
-    h1 {
-      color: #333;
-    }
-    .reclamacao {
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-    }
-    strong {
-      color: #0077cc;
-    }
+    body { font-family: Arial, sans-serif; margin: 2rem; background-color: #f9f9f9; }
+    .reclamacao { background: #fff; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid #007BFF; }
   </style>
 </head>
 <body>
   <h1>Listagem de Opiniões</h1>
-  <div id="listaReclamacoes">Carregando opiniões...</div>
+  <div id="listaReclamacoes">Carregando...</div>
 
   <script>
-    const API_URL = "https://backend-barb.onrender.com"; // sem barra no final
+    const API_URL = "https://backend-barb.onrender.com";
 
-    function carregarReclamacoes() {
-      const url = `${API_URL}/api/empresas`;
-
-      fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch(`${API_URL}/api/empresas`)
+        .then(res => res.json())
+        .then(data => {
           const container = document.getElementById("listaReclamacoes");
-          if (!container) return;
-
           container.innerHTML = "";
-          if (data.length === 0) {
+
+          if (!Array.isArray(data) || data.length === 0) {
             container.textContent = "Nenhuma opinião registrada.";
             return;
           }
 
-          data.forEach((rec) => {
+          data.forEach(rec => {
             const div = document.createElement("div");
             div.className = "reclamacao";
             div.innerHTML = `<p><strong>${rec.empresa}</strong><br>${rec.comentario}</p>`;
@@ -55,12 +36,9 @@
           });
         })
         .catch(() => {
-          const container = document.getElementById("listaReclamacoes");
-          container.textContent = "Erro ao carregar opiniões.";
+          document.getElementById("listaReclamacoes").textContent = "Erro ao carregar opiniões.";
         });
-    }
-
-    document.addEventListener("DOMContentLoaded", carregarReclamacoes);
+    });
   </script>
 </body>
 </html>

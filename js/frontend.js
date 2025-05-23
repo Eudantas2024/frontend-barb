@@ -54,3 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
     checkAuth();
   }
 });
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const token = await checkAuth();
+  if (token) {
+    carregarReclamacoes();     // mostra aprovadas
+    carregarPendentes(token);  // mostra pendentes com botão aprovar
+  }
+});

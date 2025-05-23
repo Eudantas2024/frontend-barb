@@ -96,12 +96,15 @@ async function carregarReclamacoes(token) {
       return;
     }
 
+    // Verifica se o conteúdo restrito está visível
+    const areaRestrita = document.getElementById("restrictedContent");
+    const isAdmin = areaRestrita && areaRestrita.style.display !== "none";
+
     data.forEach(rec => {
       const div = document.createElement("div");
       div.className = "reclamacao";
 
-      if (token) {
-        // Botão excluir só aparece aqui, na área admin
+      if (isAdmin) {
         div.innerHTML = `
           <p><strong>${rec.empresa}</strong><br>${rec.comentario}</p>
           <button onclick="excluirOpiniaoAprovada('${rec._id}')">Excluir</button>
@@ -110,6 +113,7 @@ async function carregarReclamacoes(token) {
       } else {
         div.innerHTML = `
           <p><strong>${rec.empresa}</strong><br>${rec.comentario}</p>
+          <hr>
         `;
       }
 

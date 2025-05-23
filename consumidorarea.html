@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Área do Consumidor</title>
+</head>
+<body>
+  <h2>Bem-vindo à sua área exclusiva</h2>
+  <p id="boasVindas"></p>
+  <button onclick="logout()">Sair</button>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Acesso negado. Faça login primeiro.");
+      window.location.href = "consumidorlogin.html";
+    } else {
+      document.getElementById("boasVindas").textContent = "Você está logado como consumidor.";
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "consumidorlogin.html";
+    }
+  </script>
+</body>
+</html>

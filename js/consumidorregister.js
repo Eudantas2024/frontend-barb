@@ -29,3 +29,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+document.getElementById('formCadastroConsumidor').addEventListener('submit', function(event) {
+  event.preventDefault(); // Impede o envio padrão do formulário
+
+  // Aqui você pode adicionar o código para enviar os dados do formulário ao servidor
+  // Supondo que o cadastro foi bem-sucedido, você pode redirecionar o usuário
+
+  // Exemplo de código para simular um cadastro bem-sucedido
+  setTimeout(function() {
+      document.getElementById('mensagemCadastro').textContent = 'Cadastro realizado com sucesso!';
+      window.location.href = 'consumidorlogin.html'; // Redireciona para a tela de login
+  }, 1000); // Simula um atraso de 1 segundo para o cadastro
+});

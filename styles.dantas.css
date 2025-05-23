@@ -74,6 +74,28 @@ button:hover {
   background-color: #c0392b;
 }
 
+
+/* Botão */
+button1 {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto 20px;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #2c39ec;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button1:hover {
+  background-color: #34a9ad;
+}
+
+
 /* Mensagem de logout */
 #logoutMessage {
   text-align: center;

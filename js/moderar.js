@@ -148,12 +148,17 @@ async function excluirOpiniaoAprovada(id) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
+
   if (token) {
-    await carregarReclamacoes(token);
-    await carregarPendentes(token);
+    // Aguarda o DOM carregar totalmente e só depois carrega as opiniões com token
+    setTimeout(async () => {
+      await carregarReclamacoes(token);
+      await carregarPendentes(token);
+    }, 100); // pequeno atraso para garantir que o token esteja disponível
   } else {
     carregarReclamacoes(null);
   }
 });
+

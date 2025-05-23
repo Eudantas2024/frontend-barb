@@ -64,9 +64,9 @@ if (loginForm) {
 
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
+    const messageBox = document.getElementById("loginMessage");
 
     if (!username || !password) {
-      const messageBox = document.getElementById("loginMessage");
       if (messageBox) {
         messageBox.textContent = "❌ Preencha todos os campos.";
         messageBox.style.color = "red";
@@ -83,26 +83,37 @@ if (loginForm) {
       });
 
       const data = await response.json();
-      const messageBox = document.getElementById("loginMessage");
-
-      if (messageBox) {
-        messageBox.textContent = data.message || "Login realizado!";
-        messageBox.style.color = response.ok ? "green" : "red";
-        messageBox.style.display = "block";
-        setTimeout(() => (messageBox.style.display = "none"), 2000);
-      }
 
       if (response.ok && data.token) {
         localStorage.setItem("token", data.token);
+
+        if (messageBox) {
+          messageBox.textContent = "✅ Login realizado com sucesso!";
+          messageBox.style.color = "green";
+          messageBox.style.display = "block";
+        }
+
         setTimeout(() => {
           window.location.href = "dantas.html";
         }, 2000);
+      } else {
+        if (messageBox) {
+          messageBox.textContent = "❌ Usuário ou senha inválidos.";
+          messageBox.style.color = "red";
+          messageBox.style.display = "block";
+        }
       }
+
     } catch (error) {
-      alert(`Erro: ${error.message}`);
+      if (messageBox) {
+        messageBox.textContent = `❌ Erro: ${error.message}`;
+        messageBox.style.color = "red";
+        messageBox.style.display = "block";
+      }
     }
   });
 }
+
 
 // ========================== VERIFICAÇÃO DE AUTENTICAÇÃO ==========================
 async function checkAuth() {

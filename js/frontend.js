@@ -1,4 +1,4 @@
-const API_URL = "https://backend-barb.onrender.com";
+
 
 // ========================== FORMULÁRIO DE OPINIÃO ==========================
 document.addEventListener("DOMContentLoaded", () => {

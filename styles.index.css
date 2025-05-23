@@ -116,6 +116,29 @@ a:hover {
   background-color: #2e86c1;
 }
 
+#listaReclamacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.reclamacao {
+  border: 2px solid #3498db;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reclamacao p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+}
+
+
 @media (min-width: 600px) {
   .botoes-links {
     flex-direction: row;

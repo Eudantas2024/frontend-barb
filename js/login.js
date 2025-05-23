@@ -84,7 +84,8 @@ if (loginForm) {
       if (response.ok && data.token) {
         localStorage.setItem("token", data.token);
         setTimeout(() => {
-          window.location.href = "moderador.html";
+          window.location.href = "dantas.html";
+        //   window.location.href = "moderador.html";
         }, 2000);
       }
     } catch (error) {

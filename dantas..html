@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dantas</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body id="restrictedContent">
+  <div class="container">
+    <h1>ÁREA EXCLUSIVA ddd  DA ADMINISTRAÇÃO</h1>
+    <br>
+    <p>Área restrita - apenas para usuários autenticados.</p>
+    <br>
+    <a href="formreg.html">Página de cadastro de moderadores</a><br><br>
+    <p>Não esqueça de fazer logout clicando em 'SAIR' quando terminar.</p><br>
+    <button onclick="logout()">SAIR</button><br><br>
+
+    <div id="logoutMessage" style="display: none;">✅ Logout realizado com sucesso!</div>
+
+    <h2>Últimas Reclamações</h2>
+    <div id="listaReclamacoes"></div>
+  </div>
+
+
+  <script src="js/login.js"></script>
+  <script src="js/frontend.js"></script>
+</body>
+
+</html>

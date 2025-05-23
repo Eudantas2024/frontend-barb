@@ -1,42 +1,50 @@
-/* Reset e base */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
+  width: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
+  background-color: #f4f8fb;
   color: #2c3e50;
+}
+
+/* Layout principal */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 }
 
-/* Container centralizado */
-.container {
-  max-width: 900px;
-  margin: auto;
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
-}
-
-/* Títulos */
-h1 {
+/* Texto e títulos */
+h2 {
   font-size: 26px;
   color: #1a5276;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+h3 {
+  font-size: 20px;
+  margin: 20px 0 10px;
+  color: #21618c;
+  text-align: center;
 }
 
 p {
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  text-align: center;
 }
 
-/* Links */
 a {
   display: inline-block;
-  margin-top: 8px;
+  margin-bottom: 20px;
   color: #2980b9;
   text-decoration: none;
   font-weight: 500;
@@ -46,7 +54,20 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Botões */
+/* Campos e botões */
+textarea {
+  width: 100%;
+  max-width: 600px;
+  min-height: 200px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: vertical;
+  background-color: #fff;
+  margin-bottom: 12px;
+}
+
 button {
   background-color: #3498db;
   color: white;
@@ -56,42 +77,30 @@ button {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 10px;
 }
 
 button:hover {
   background-color: #2e86c1;
 }
 
-/* Mensagens */
-#logoutMessage {
-  font-size: 15px;
-  margin-top: 10px;
-  color: green;
-}
-
-#mensagemStatus {
-  margin: 10px 0;
-  font-weight: bold;
-}
-
-/* Conteúdos */
-#listaReclamacoes,
-#pendentes {
-  background-color: #ecf0f1;
-  padding: 15px;
-  border-left: 4px solid #3498db;
-  border-radius: 6px;
-  margin-top: 10px;
-}
-
-/* Responsividade */
+/* Responsivo para smartphone */
 @media (max-width: 600px) {
-  .container {
-    padding: 20px;
+  body {
+    padding: 15px;
   }
 
-  h1 {
-    font-size: 20px;
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  textarea {
+    font-size: 15px;
+    min-height: 180px;
   }
 
   button {
@@ -100,7 +109,6 @@ button:hover {
   }
 
   a {
-    display: block;
-    margin-top: 10px;
+    font-size: 15px;
   }
 }

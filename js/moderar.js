@@ -8,6 +8,8 @@ async function carregarPendentes(token) {
 
     const opinioes = await res.json();
     const container = document.getElementById("pendentes");
+    if (!container) return; // evita erro se não existir
+
     container.innerHTML = "";
 
     if (!Array.isArray(opinioes) || opinioes.length === 0) {
@@ -26,12 +28,16 @@ async function carregarPendentes(token) {
       container.appendChild(div);
     });
   } catch (err) {
-    document.getElementById("pendentes").textContent = "Erro ao carregar.";
+    const container = document.getElementById("pendentes");
+    if (container) container.textContent = "Erro ao carregar.";
   }
 }
 
 async function aprovarOpiniao(id) {
   const token = localStorage.getItem("token");
+  const statusMsg = document.getElementById("mensagemStatus");
+  if (!statusMsg) return;
+
   try {
     const res = await fetch(`${API_URL}/api/moderar/${id}`, {
       method: "PUT",
@@ -42,10 +48,10 @@ async function aprovarOpiniao(id) {
 
     if (!res.ok) throw new Error("Erro ao aprovar.");
 
-    document.getElementById("mensagemStatus").textContent = "✅ Opinião aprovada.";
-    carregarPendentes(token); // Atualiza lista
-    carregarReclamacoes();    // Atualiza lista pública
+    statusMsg.textContent = "✅ Opinião aprovada.";
+    await carregarPendentes(token); // atualiza lista pendentes
+    await carregarReclamacoes();    // atualiza lista pública (certifique-se que essa função existe)
   } catch {
-    document.getElementById("mensagemStatus").textContent = "❌ Erro ao aprovar.";
+    statusMsg.textContent = "❌ Erro ao aprovar.";
   }
 }

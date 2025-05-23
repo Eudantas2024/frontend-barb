@@ -1,4 +1,4 @@
-const API_URL = "https://backend-barb.onrender.com"; // sem barra no final
+const API_URL = "https://backend-barb.onrender.com";
 
 // ========================== FORMULÁRIO DE OPINIÃO ==========================
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const resposta = await fetch(`${API_URL}/api/empresas`, { // só uma barra
+        const resposta = await fetch(`${API_URL}/api/empresas`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -54,25 +54,3 @@ document.addEventListener("DOMContentLoaded", () => {
     checkAuth();
   }
 });
-
-// ========================== LISTAR OPINIÕES APROVADAS ==========================
-function carregarReclamacoes(token = null) {
-  const url = `${API_URL}/api/empresas`; // só uma barra
-  const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-  fetch(url, { headers })
-    .then((res) => res.json())
-    .then((data) => {
-      const container = document.getElementById("listaReclamacoes");
-      if (!container) return;
-
-      container.innerHTML = "";
-      data.forEach((rec) => {
-        const div = document.createElement("div");
-        div.className = "reclamacao";
-        div.innerHTML = `<p><strong>${rec.empresa}</strong> - ${rec.comentario}</p>`;
-        container.appendChild(div);
-      });
-    })
-    .catch(() => alert("Erro ao carregar opiniões."));
-}

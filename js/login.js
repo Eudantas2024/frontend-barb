@@ -1,6 +1,4 @@
-const API_URL = "https://backend-barb.onrender.com"    // se estiver hospedado  "http://localhost:3000";
-
-
+const API_URL = "https://backend-barb.onrender.com";
 
 // ========================== REGISTRO ==========================
 const registerForm = document.getElementById("registerForm");
@@ -85,7 +83,6 @@ if (loginForm) {
         localStorage.setItem("token", data.token);
         setTimeout(() => {
           window.location.href = "dantas.html";
-        //   window.location.href = "moderador.html";
         }, 2000);
       }
     } catch (error) {
@@ -106,7 +103,9 @@ async function checkAuth() {
     const res = await fetch(`${API_URL}/api/conteudo`, {
       headers: { Authorization: `Bearer ${token}` }
     });
+
     if (!res.ok) throw new Error();
+
     const content = document.getElementById("restrictedContent");
     if (content) content.style.display = "block";
   } catch {
@@ -115,6 +114,7 @@ async function checkAuth() {
   }
 }
 
+// ========================== LOGOUT ==========================
 function logout() {
   localStorage.removeItem("token");
   const msg = document.getElementById("logoutMessage");
@@ -127,7 +127,7 @@ function logout() {
 
 // ========================== LISTAR OPINIÕES APROVADAS ==========================
 function carregarReclamacoes(token = null) {
-  const url = `${API_URL}/api/opinioes`;
+  const url = `${API_URL}/api/empresas`;
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
   fetch(url, { headers })
@@ -146,4 +146,3 @@ function carregarReclamacoes(token = null) {
     })
     .catch(() => alert("Erro ao carregar opiniões."));
 }
-

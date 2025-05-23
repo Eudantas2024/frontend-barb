@@ -8,7 +8,7 @@ async function carregarPendentes(token) {
 
     const opinioes = await res.json();
     const container = document.getElementById("pendentes");
-    if (!container) return; // evita erro se não existir
+    if (!container) return;
 
     container.innerHTML = "";
 
@@ -23,6 +23,7 @@ async function carregarPendentes(token) {
       div.innerHTML = `
         <p><strong>${op.empresa}</strong><br>${op.comentario}</p>
         <button onclick="aprovarOpiniao('${op._id}')">Aprovar</button>
+        <button onclick="excluirOpiniao('${op._id}')">Excluir</button>
         <hr>
       `;
       container.appendChild(div);
@@ -49,9 +50,32 @@ async function aprovarOpiniao(id) {
     if (!res.ok) throw new Error("Erro ao aprovar.");
 
     statusMsg.textContent = "✅ Opinião aprovada.";
-    await carregarPendentes(token); // atualiza lista pendentes
-    await carregarReclamacoes();    // atualiza lista pública (certifique-se que essa função existe)
+    await carregarPendentes(token);
+    await carregarReclamacoes();
   } catch {
     statusMsg.textContent = "❌ Erro ao aprovar.";
+  }
+}
+
+// Função para excluir opinião pendente
+async function excluirOpiniao(id) {
+  const token = localStorage.getItem("token");
+  const statusMsg = document.getElementById("mensagemStatus");
+  if (!statusMsg) return;
+
+  try {
+    const res = await fetch(`${API_URL}/api/moderar/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) throw new Error("Erro ao excluir.");
+
+    statusMsg.textContent = "🗑️ Opinião excluída.";
+    await carregarPendentes(token);
+  } catch {
+    statusMsg.textContent = "❌ Erro ao excluir.";
   }
 }

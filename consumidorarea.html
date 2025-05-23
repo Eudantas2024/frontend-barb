@@ -1,63 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Área do Consumidor</title>
-  <link rel="stylesheet" href="styles.dantas.css" />
+    <meta charset="UTF-8">
+    <title>Área do Consumidor</title>
+    <link rel="stylesheet" href="styles.dantas.css" />
 </head>
+
 <body>
-  <h2>Bem-vindo à sua área exclusiva</h2>
-  <p id="boasVindas"></p>
-  <a href="index.html">ir para inicio</a>
+    <div class="container">
+        <h2>Bem-vindo à sua área exclusiva</h2>
+        <p id="boasVindas"></p>
+        <a href="index.html">ir para inicio</a>
 
-  <h3>Suas Anotações</h3>
-  <textarea id="anotacoes" rows="10" cols="50" placeholder="Escreva suas anotações aqui..."></textarea><br>
-  <button onclick="salvarAnotacoes()">Salvar Anotações</button><br><br>
+        <h3>Suas Anotações</h3>
+        <textarea id="anotacoes" rows="10" cols="50" placeholder="Escreva suas anotações aqui..."></textarea><br>
+        <button onclick="salvarAnotacoes()">Salvar Anotações</button><br><br>
 
-  <button onclick="logout()">Sair</button>
+        <button onclick="logout()">Sair</button>
+    </div>
+    <script>
+        const token = localStorage.getItem("token");
+        const boasVindas = document.getElementById("boasVindas");
+        const textarea = document.getElementById("anotacoes");
 
-  <script>
-    const token = localStorage.getItem("token");
-    const boasVindas = document.getElementById("boasVindas");
-    const textarea = document.getElementById("anotacoes");
-
-    if (!token) {
-      alert("Acesso negado. Faça login primeiro.");
-      window.location.href = "consumidorlogin.html";
-    } else {
-      boasVindas.textContent = "Você está logado como consumidor.";
-      // Buscar anotações existentes
-      fetch("https://backend-barb.onrender.com/consumidor/anotacoes", {
-        headers: {
-          "Authorization": "Bearer " + token
+        if (!token) {
+            alert("Acesso negado. Faça login primeiro.");
+            window.location.href = "consumidorlogin.html";
+        } else {
+            boasVindas.textContent = "Você está logado como consumidor.";
+            // Buscar anotações existentes
+            fetch("https://backend-barb.onrender.com/consumidor/anotacoes", {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    textarea.value = data.anotacoes || "";
+                });
         }
-      })
-      .then(res => res.json())
-      .then(data => {
-        textarea.value = data.anotacoes || "";
-      });
-    }
 
-    function salvarAnotacoes() {
-      const texto = textarea.value;
-      fetch("https://backend-barb.onrender.com/consumidor/anotacoes", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify({ anotacoes: texto })
-      })
-      .then(res => res.json())
-      .then(data => {
-        alert(data.message);
-      });
-    }
+        function salvarAnotacoes() {
+            const texto = textarea.value;
+            fetch("https://backend-barb.onrender.com/consumidor/anotacoes", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({ anotacoes: texto })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                });
+        }
 
-    function logout() {
-      localStorage.removeItem("token");
-      window.location.href = "index.html";
-    }
-  </script>
+        function logout() {
+            localStorage.removeItem("token");
+            window.location.href = "index.html";
+        }
+    </script>
 </body>
+
 </html>

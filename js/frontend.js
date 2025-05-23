@@ -1,7 +1,5 @@
-
-
-// ========================== FORMULÁRIO DE OPINIÃO ==========================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Formulário de opinião
   const opiniaoForm = document.getElementById("opiniaoForm");
   if (opiniaoForm) {
     opiniaoForm.addEventListener("submit", async function (e) {
@@ -46,19 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const token = localStorage.getItem("token");
-  if (document.getElementById("listaReclamacoes")) {
-    carregarReclamacoes(token);
-  }
-  if (document.getElementById("restrictedContent")) {
-    checkAuth();
-  }
-});
+  // Verifica autenticação e carrega conteúdo restrito
+  const autorizado = await checkAuth();
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const token = await checkAuth();
-  if (token) {
-    carregarReclamacoes();     // mostra aprovadas
-    carregarPendentes(token);  // mostra pendentes com botão aprovar
+  if (autorizado) {
+    carregarReclamacoes();               // carrega aprovadas, não precisa token
+    const token = localStorage.getItem("token");
+    carregarPendentes(token);            // carrega pendentes, token obrigatório
+  } else {
+    carregarReclamacoes();               // carrega públicas mesmo sem login
   }
 });

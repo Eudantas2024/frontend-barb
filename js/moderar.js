@@ -22,7 +22,7 @@ async function carregarPendentes(token) {
       div.className = "reclamacao";
       div.innerHTML = `
         <p><strong>${op.empresa}</strong><br>${op.comentario}</p>
-        <button1 onclick="aprovarOpiniao('${op._id}')">Aprovar</1button>
+        <button class="aprovar" onclick="aprovarOpiniao('${op._id}')">Aprovar</button>
         <button onclick="excluirOpiniao('${op._id}')">Excluir</button>
         <hr>
       `;

@@ -25,10 +25,23 @@ if (registerForm) {
       const messageBox = document.getElementById("registerMessage");
 
       if (messageBox) {
-        messageBox.textContent = data.message;
-        messageBox.style.display = "block";
-        setTimeout(() => (messageBox.style.display = "none"), 2000);
+        if (response.ok && data.token) {
+          messageBox.textContent = "✅ Login realizado com sucesso!";
+          messageBox.style.color = "green";
+          messageBox.style.display = "block";
+
+          localStorage.setItem("token", data.token);
+          setTimeout(() => {
+            window.location.href = "dantas.html";
+          }, 2000);
+        } else {
+          messageBox.textContent = "❌ Usuário ou senha inválidos.";
+          messageBox.style.color = "red";
+          messageBox.style.display = "block";
+          setTimeout(() => (messageBox.style.display = "none"), 3000);
+        }
       }
+
 
       if (response.ok && data.message.includes("registrado")) {
         setTimeout(() => {

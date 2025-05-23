@@ -25,17 +25,21 @@
             <input type="password" placeholder="Senha" required name="senha"><br>
             <button type="submit">Entrar</button>
         </form>
-        
+
         <div id="mensagemLogin" style="margin-top: 10px; color: red;"></div>
         <br><br>
-         <p>Não tem conta? <a href="consumidorregister.html">Cadastre-se aqui</a></p>
+        <p>Não tem conta? <a href="consumidorregister.html">Cadastre-se aqui</a></p>
 
         <h1>PÁGINA DE ACESSO PÚBLICO</h1>
         <br>
 
-        <a href="empresa.html">Registre uma opniao aqui</a>
-        <a href="listagem.html">listagem</a>
-        <a href="consumidorlogin.html">Area do consumidor</a>
+        <!-- Botões interativos com redirecionamento -->
+        <div class="botoes-links">
+            <button onclick="window.location.href='empresa.html'">Registre uma opinião</button>
+            <button onclick="window.location.href='listagem.html'">Listagem</button>
+            <button onclick="window.location.href='consumidorlogin.html'">Área do Consumidor</button>
+        </div>
+
 
         <br><br><br>
 
@@ -52,7 +56,7 @@
     <script src="js/login.js"></script>
     <script src="js/consumidorlogin.js"></script>
     <script src="js/publico.js"></script>
-    
+
 </body>
 
 </html>
